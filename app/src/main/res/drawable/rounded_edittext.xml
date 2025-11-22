@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Background -->
+    <solid android:color="@android:color/white" />
+
+    <!-- Border warna toska muda -->
+    <stroke
+        android:width="2dp"
+        android:color="#9EDFD3" /> <!-- warna selaras sama tombol & tema -->
+
+    <!-- Rounded -->
+    <corners android:radius="14dp" />
+
+    <!-- Padding supaya isi EditText tidak mepet -->
+    <padding
+        android:left="14dp"
+        android:right="14dp"
+        android:top="12dp"
+        android:bottom="12dp" />
+</shape>

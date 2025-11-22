@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomBottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@null</item>
+        <item name="itemActiveIndicatorStyle">@style/NoActiveIndicator</item>
+    </style>
+
+    <style name="NoActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+        <item name="android:width">0dp</item>
+        <item name="android:height">0dp</item>
+    </style>
+</resources>
