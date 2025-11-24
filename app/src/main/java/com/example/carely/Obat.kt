@@ -9,7 +9,7 @@ data class Obat (
     val dose : String,
     val time : String = getCurrentTime(),
     val note : String? = "-",
-    val aul : String = "hai"
+    val aul : String = "haii"
 )
 
 fun getCurrentTime(): String {
