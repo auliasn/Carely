@@ -8,8 +8,7 @@ data class Obat (
     val name : String,
     val dose : String,
     val time : String = getCurrentTime(),
-    val note : String? = "-",
-    val nazwa : String = "commit nazwa"
+    val note : String? = "-"
 )
 
 fun getCurrentTime(): String {
