@@ -9,13 +9,8 @@ data class Obat (
     val dose : String,
     val time : String = getCurrentTime(),
     val note : String? = "-",
-    val status : statusObat
+    val aul : String = "haii"
 )
-
-enum class statusObat {
-   SUDAH_DIMINUM,
-   BELUM_DIMINUM
-}
 
 fun getCurrentTime(): String {
     val sdf = SimpleDateFormat("HH.mm WIB", Locale.getDefault())
