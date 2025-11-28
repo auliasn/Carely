@@ -13,7 +13,7 @@ data class Obat (
 )
 
 enum class statusObat {
-    SUDAH_DIMUNUM,
+    SUDAH_DIMINUM,
     BELUM_DIMINUM
 }
 
