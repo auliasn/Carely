@@ -18,8 +18,6 @@
         android:background="@drawable/item_obat_bg"
         android:padding="16dp">
 
-
-
         <ImageView
             android:id="@+id/btnMore"
             android:layout_width="24dp"
