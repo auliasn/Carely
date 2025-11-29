@@ -8,7 +8,6 @@
     android:background="@drawable/bg_gradient"
     tools:context=".LoginActivity">
 
-    <!-- LOGO -->
     <ImageView
         android:id="@+id/viewLogo"
         android:layout_width="140dp"
@@ -18,9 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="70dp" /> <!-- dinaikkan dari 40dp ke 70dp -->
+        android:layout_marginTop="70dp" />
 
-    <!-- LOGIN TITLE -->
     <TextView
         android:id="@+id/textViewLoginBtn"
         android:layout_width="wrap_content"
@@ -35,7 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- CONTAINER -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/containerBox"
         android:layout_width="0dp"
@@ -57,7 +54,6 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- USERNAME -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +71,6 @@
             android:paddingEnd="16dp"
             android:layout_marginBottom="26dp"/>
 
-        <!-- PASSWORD -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +89,6 @@
             android:paddingEnd="16dp"
             android:layout_marginBottom="32dp"/>
 
-        <!-- LOGIN BUTTON -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
