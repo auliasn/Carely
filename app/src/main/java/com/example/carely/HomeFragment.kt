@@ -1,7 +1,5 @@
 package com.example.carely
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,11 +33,13 @@ class HomeFragment : Fragment() {
         val recyclerViewMeds = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
         recyclerViewMeds.layoutManager = GridLayoutManager(requireContext(), 2)
 
+        // 🔥 WAJIB untuk membuat card bisa scroll di dalam item
+
         val listObat = listOf(
             Obat("Vitamin C", "1 Tablet", "07.00", "-", statusObat.SUDAH_DIMINUM),
             Obat("Omeprazole", "1 Kapsul", "06.30", "Sebelum Makan", statusObat.BELUM_DIMINUM),
             Obat("Simvastatin", "1 Tablet", "21.00", "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat("Kalsium D3", "1 Tablet Kunyah", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),
+            Obat("Kalsium D3", "1 Tablet", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),
             Obat("Amoxilin", "1 Tablet", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),
             Obat("Ibuprofen", "1 Tablet", "07.00", "Setelah Makan", statusObat.BELUM_DIMINUM),
             Obat("Ibuprofen", "1 Tablet", "07.00", "Setelah Makan", statusObat.BELUM_DIMINUM)
