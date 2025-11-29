@@ -25,24 +25,32 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.fragmentContainerView)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationMenu)
-
-        // ⛔ Jangan pakai listener manual!
-        // ⛔ Cukup ini biar navigation controller yang urus pindah halaman
         bottomNav.setupWithNavController(navController)
 
-        // ===== SET WARNA ICON & TEXT =====
+        val username = intent.getStringExtra(LoginActivity.KEY_USERNAME)
+        navController.addOnDestinationChangedListener { controller, destination, _ ->
+            if (destination.id == R.id.profileFragment) {
+                val bundle = Bundle().apply {
+                    putString("username", username)
+                }
+
+                if (destination.id != controller.currentDestination?.id) {
+                    controller.navigate(R.id.profileFragment, bundle)
+                }
+            }
+        }
+
         val states = arrayOf(
-            intArrayOf(android.R.attr.state_checked),       // selected
-            intArrayOf(-android.R.attr.state_checked)       // not selected
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf(-android.R.attr.state_checked)
         )
 
         val colors = intArrayOf(
-            Color.BLACK,   // selected → hitam
-            Color.WHITE    // default → putih
+            Color.BLACK,
+            Color.WHITE
         )
 
         val colorStateList = ColorStateList(states, colors)
-
         bottomNav.itemIconTintList = colorStateList
         bottomNav.itemTextColor = colorStateList
     }

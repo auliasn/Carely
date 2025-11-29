@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 
 class ProfileFragment : Fragment() {
 
@@ -13,6 +14,10 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val username = arguments?.getString("username")
+        val name = view.findViewById<EditText>(R.id.etName)
+        name.setText(username?: " ")
+        return view
     }
 }
