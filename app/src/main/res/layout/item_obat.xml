@@ -11,13 +11,14 @@
     card_view:cardPreventCornerOverlap="true"
     card_view:cardBackgroundColor="@android:color/transparent">
 
-    <!-- ini yang bener-bener jadi kartu + stroke -->
     <RelativeLayout
         android:id="@+id/containerRoot"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:background="@drawable/item_obat_bg"
         android:padding="16dp">
+
+
 
         <ImageView
             android:id="@+id/btnMore"
