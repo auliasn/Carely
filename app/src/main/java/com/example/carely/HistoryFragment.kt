@@ -8,12 +8,18 @@ import android.view.ViewGroup
 
 class HistoryFragment : Fragment() {
 
+    // Fungsi ini dipanggil waktu fragment mau dibuat
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,     // ini buat "ngembangin" layout (membaca XML jadi tampilan)
+        container: ViewGroup?,        // tempat fragment bakal ditaruh
+        savedInstanceState: Bundle?   // data sebelum-sebelumnya (biasanya ga dipakai)
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
-    }
 
+        // DI SINI KITA NAMPILIN XML-nya
+        // fragment_history = nama file layout XML kamu
+        val view = inflater.inflate(R.layout.fragment_history, container, false)
+
+        // mengembalikan tampilan tadi supaya ditampilkan di layar
+        return view
+    }
 }
