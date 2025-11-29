@@ -1,0 +1,11 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- warna dalam kartu -->
+    <solid android:color="#FFFFFF"/>
+
+    <!-- HARUS sama dengan cardCornerRadius -->
+    <corners android:radius="16dp" />
+
+    <stroke
+        android:width="2dp"
+        android:color="#1FB6A6"/>  <!-- warna hijau kamu -->
+</shape>

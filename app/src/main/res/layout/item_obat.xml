@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="6dp">
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="0dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="true"
+    card_view:cardBackgroundColor="@android:color/transparent">
 
+    <!-- ini yang bener-bener jadi kartu + stroke -->
     <RelativeLayout
+        android:id="@+id/containerRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:background="@drawable/item_obat_bg"
+        android:padding="16dp">
 
-        <!-- TITIK TIGA -->
         <ImageView
             android:id="@+id/btnMore"
             android:layout_width="24dp"
@@ -22,15 +28,12 @@
             android:layout_marginEnd="4dp"
             android:layout_marginTop="4dp" />
 
-        <!-- CONTENT -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/btnMore">
 
-            <!-- NAME -->
             <TextView
                 android:id="@+id/labelName"
                 android:text="Name:"
@@ -46,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <!-- DOSE -->
             <TextView
                 android:id="@+id/labelDose"
                 android:text="Dose:"
@@ -62,7 +64,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <!-- TIME -->
             <TextView
                 android:id="@+id/labelTime"
                 android:text="Time:"
@@ -78,7 +79,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <!-- NOTE -->
             <TextView
                 android:id="@+id/labelNote"
                 android:text="Note:"

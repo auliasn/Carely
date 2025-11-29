@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         recyclerViewMeds.layoutManager = GridLayoutManager(requireContext(), 2)
 
         val listObat = listOf(
-            Obat("Vitamin C", "1 Tablet", "07.00", "-", statusObat.BELUM_DIMINUM),
+            Obat("Vitamin C", "1 Tablet", "07.00", "-", statusObat.SUDAH_DIMINUM),
             Obat("Omeprazole", "1 Kapsul", "06.30", "Sebelum Makan", statusObat.BELUM_DIMINUM),
             Obat("Simvastatin", "1 Tablet", "21.00", "Setelah Makan", statusObat.BELUM_DIMINUM),
             Obat("Kalsium D3", "1 Tablet Kunyah", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),

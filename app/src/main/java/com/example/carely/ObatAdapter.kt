@@ -1,5 +1,7 @@
 package com.example.carely
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ class ObatAdapter (val listObat : List<Obat>) : RecyclerView.Adapter<ObatAdapter
         val textViewDose = row.findViewById<TextView>(R.id.textViewDose)
         val textViewTime = row.findViewById<TextView>(R.id.textViewTime)
         val textViewNote = row.findViewById<TextView>(R.id.textViewNote)
+        val containerRoot = row.findViewById<View>(R.id.containerRoot)
         val btnMore = row.findViewById<ImageView>(R.id.btnMore)
     }
 
@@ -36,6 +39,14 @@ class ObatAdapter (val listObat : List<Obat>) : RecyclerView.Adapter<ObatAdapter
         holder.textViewDose.text = obat.dose
         holder.textViewTime.text = obat.time
         holder.textViewNote.text = obat.note
+
+        val bg = holder.containerRoot.background as GradientDrawable
+
+        if (obat.status == statusObat.SUDAH_DIMINUM) {
+            bg.setStroke(4, Color.parseColor("#3DB4A0"))
+        } else {
+            bg.setStroke(4, Color.parseColor("#CCCCCC"))
+        }
 
         holder.btnMore.setOnClickListener { view ->
             val popup = PopupMenu(view.context, view)
