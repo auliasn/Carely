@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#A6E7D5">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Back + Title -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_back"
+                android:padding="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDIT MEDICINE"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/herbal_capsule"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:padding="4dp"/>
+        </LinearLayout>
+
+
+        <!-- Label Name -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <!-- Input Name -->
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:textSize="16sp" />
+
+
+        <!-- Time -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/editHour"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:background="@drawable/edittext_bg"
+                android:padding="8dp"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="20sp"
+                android:layout_marginHorizontal="4dp" />
+
+            <EditText
+                android:id="@+id/editMinute"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:background="@drawable/edittext_bg"
+                android:padding="8dp"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+
+        <!-- Dose -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dose"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/editDose"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:textSize="16sp" />
+
+
+        <!-- Note -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/editNote"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:gravity="top"
+            android:textSize="16sp" />
+
+
+        <!-- SAVE button -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="SAVE"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="#3DB4A0"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="40dp" />
+
+        <!-- DELETE button -->
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="DELETE"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="#C64646"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
+
+</ScrollView>

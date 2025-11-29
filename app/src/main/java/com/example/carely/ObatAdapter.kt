@@ -10,8 +10,12 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ObatAdapter (val listObat : List<Obat>) : RecyclerView.Adapter<ObatAdapter.ObatViewHolder>(){
-    class ObatViewHolder (val row: View) : RecyclerView.ViewHolder(row){
+class ObatAdapter(
+    private val listObat: List<Obat>,
+    private val onEditClick: (Obat) -> Unit     // ⬅ callback untuk edit
+) : RecyclerView.Adapter<ObatAdapter.ObatViewHolder>() {
+
+    class ObatViewHolder(val row: View) : RecyclerView.ViewHolder(row) {
         val textViewName = row.findViewById<TextView>(R.id.textViewName)
         val textViewDose = row.findViewById<TextView>(R.id.textViewDose)
         val textViewTime = row.findViewById<TextView>(R.id.textViewTime)
@@ -21,12 +25,8 @@ class ObatAdapter (val listObat : List<Obat>) : RecyclerView.Adapter<ObatAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObatViewHolder {
-        val layout =
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_obat,
-                parent,
-                false
-            )
+        val layout = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_obat, parent, false)
         return ObatViewHolder(layout)
     }
 
@@ -48,24 +48,26 @@ class ObatAdapter (val listObat : List<Obat>) : RecyclerView.Adapter<ObatAdapter
             bg.setStroke(4, Color.parseColor("#CCCCCC"))
         }
 
+        // 🔥 tombol More
         holder.btnMore.setOnClickListener { view ->
             val popup = PopupMenu(view.context, view)
             popup.inflate(R.menu.options_menu)
 
+            // paksa tampilkan icon
             try {
                 val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
                 fieldMPopup.isAccessible = true
                 val mPopup = fieldMPopup.get(popup)
-                mPopup.javaClass
-                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-                    .invoke(mPopup, true)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+                mPopup.javaClass.getDeclaredMethod(
+                    "setForceShowIcon",
+                    Boolean::class.java
+                ).invoke(mPopup, true)
+            } catch (_: Exception) {}
 
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_edit -> {
+                        onEditClick(obat)     // ⬅ panggil callback ke fragment
                         true
                     }
                     else -> false

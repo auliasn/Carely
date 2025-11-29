@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -21,27 +22,37 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val username = requireActivity()
-            .intent
-            .getStringExtra(LoginActivity.KEY_USERNAME)
-
         val textViewMessage = view.findViewById<TextView>(R.id.textViewMessage)
         textViewMessage.text = "DAILY MEDS"
 
-        val recyclerViewMeds = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
-        recyclerViewMeds.layoutManager = GridLayoutManager(requireContext(), 2)
-
+        // === DATA OBAT (ini dulu hilang, jadi aku tambahkan) ===
         val listObat = listOf(
             Obat("Vitamin C", "1 Tablet", "07.00", "-", statusObat.SUDAH_DIMINUM),
             Obat("Omeprazole", "1 Kapsul", "06.30", "Sebelum Makan", statusObat.BELUM_DIMINUM),
             Obat("Simvastatin", "1 Tablet", "21.00", "Setelah Makan", statusObat.BELUM_DIMINUM),
             Obat("Kalsium D3", "1 Tablet", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),
             Obat("Amoxilin", "1 Tablet", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat("Ibuprofen", "1 Tablet", "07.00", "Setelah Makan", statusObat.BELUM_DIMINUM),
             Obat("Ibuprofen", "1 Tablet", "07.00", "Setelah Makan", statusObat.BELUM_DIMINUM)
         )
 
-        val adapter = ObatAdapter(listObat)
+        val recyclerViewMeds = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
+        recyclerViewMeds.layoutManager = GridLayoutManager(requireContext(), 2)
+
+        // === ADAPTER DENGAN KLIK ITEM (untuk ke halaman edit) ===
+        val adapter = ObatAdapter(listObat) { obat ->
+            val bundle = Bundle().apply {
+                putString("name", obat.name)
+                putString("dose", obat.dose)
+                putString("time", obat.time)
+                putString("note", obat.note)
+            }
+
+            findNavController().navigate(
+                R.id.action_homeFragment_to_editObatFragment,
+                bundle
+            )
+        }
+
         recyclerViewMeds.adapter = adapter
     }
 }

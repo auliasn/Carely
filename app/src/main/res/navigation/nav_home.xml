@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.carely.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_editObatFragment"
+            app:destination="@id/editObatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.carely.HistoryFragment"
@@ -20,4 +24,9 @@
         android:name="com.example.carely.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/editObatFragment"
+        android:name="com.example.carely.EditObatFragment"
+        android:label="fragment_edit_obat"
+        tools:layout="@layout/fragment_edit_obat" />
 </navigation>
