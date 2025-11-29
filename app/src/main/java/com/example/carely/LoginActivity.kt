@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
             if (username == "aulia" && password == "123") {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra(KEY_USERNAME, username)
+                intent.putExtra(KEY_PASSWORD, password)
                 startActivity(intent)
                 Toast.makeText(
                     this,
@@ -47,5 +48,6 @@ class LoginActivity : AppCompatActivity() {
     }
     companion object KEY {
         const val KEY_USERNAME = "UserName"
+        const val KEY_PASSWORD = "password"
     }
 }

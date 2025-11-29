@@ -15,9 +15,16 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        val username = arguments?.getString("username")
-        val name = view.findViewById<EditText>(R.id.etName)
-        name.setText(username?: " ")
+
+        val mainActivity = requireActivity() as MainActivity
+        val username = mainActivity.username
+        val password = mainActivity.password
+
+        val nameField = view.findViewById<EditText>(R.id.etName)
+        nameField.setText(username ?: "")
+        val passField = view.findViewById<EditText>(R.id.etPassword)
+        passField.setText(password ?: "")
+
         return view
     }
 }

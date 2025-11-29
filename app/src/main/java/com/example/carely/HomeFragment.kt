@@ -21,19 +21,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ====== AMBIL USERNAME ======
         val username = requireActivity()
             .intent
             .getStringExtra(LoginActivity.KEY_USERNAME)
 
         val textViewMessage = view.findViewById<TextView>(R.id.textViewMessage)
-        textViewMessage.text = "Hello $username"
+        textViewMessage.text = "DAILY MEDS"
 
-        // ====== RECYCLER VIEW ======
         val recyclerViewMeds = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
         recyclerViewMeds.layoutManager = GridLayoutManager(requireContext(), 2)
-
-        // 🔥 WAJIB untuk membuat card bisa scroll di dalam item
 
         val listObat = listOf(
             Obat("Vitamin C", "1 Tablet", "07.00", "-", statusObat.SUDAH_DIMINUM),

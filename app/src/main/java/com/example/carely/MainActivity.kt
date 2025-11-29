@@ -12,6 +12,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    var username: String? = null
+    var password: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,22 +27,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        username = intent.getStringExtra(LoginActivity.KEY_USERNAME)
+        password = intent.getStringExtra(LoginActivity.KEY_PASSWORD)
+
         val navController = findNavController(R.id.fragmentContainerView)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationMenu)
         bottomNav.setupWithNavController(navController)
-
-        val username = intent.getStringExtra(LoginActivity.KEY_USERNAME)
-        navController.addOnDestinationChangedListener { controller, destination, _ ->
-            if (destination.id == R.id.profileFragment) {
-                val bundle = Bundle().apply {
-                    putString("username", username)
-                }
-
-                if (destination.id != controller.currentDestination?.id) {
-                    controller.navigate(R.id.profileFragment, bundle)
-                }
-            }
-        }
 
         val states = arrayOf(
             intArrayOf(android.R.attr.state_checked),
