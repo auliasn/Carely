@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#A6E7D5">
+    android:background="@drawable/bg_gradient">
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
-        <!-- Back + Title -->
+        <!-- Back + Title + Logo -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,15 +35,21 @@
                 android:layout_marginStart="12dp"
                 android:textColor="#000000"/>
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/herbal_capsule"
-                android:layout_gravity="end"
+            <!-- Spacer biar logo ke kanan -->
+            <View
+                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:padding="4dp"/>
-        </LinearLayout>
+                android:layout_height="1dp" />
 
+            <!-- Logo di sebelah kanan title -->
+            <ImageView
+                android:id="@+id/logoCarely"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/herbal_capsule"
+                android:layout_marginStart="12dp"/>
+
+        </LinearLayout>
 
         <!-- Label Name -->
         <TextView
