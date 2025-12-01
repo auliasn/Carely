@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/bg_gradient">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Back + Title + Logo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_back"
+                android:padding="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD MEDICINE"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                android:textColor="#000000"/>
+
+            <!-- Spacer biar logo ke kanan -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Logo -->
+            <ImageView
+                android:id="@+id/logoCarely"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/herbal_capsule"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+
+        <!-- Name -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/addName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:hint="Vitamin C"
+            android:textSize="16sp" />
+
+
+        <!-- Time -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/addHour"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:background="@drawable/edittext_bg"
+                android:padding="8dp"
+                android:inputType="number"
+                android:hint="07" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="20sp"
+                android:layout_marginHorizontal="4dp" />
+
+            <EditText
+                android:id="@+id/addMinute"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:background="@drawable/edittext_bg"
+                android:padding="8dp"
+                android:inputType="number"
+                android:hint="00" />
+
+        </LinearLayout>
+
+
+        <!-- Dose -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dose"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/addDose"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:hint="1 Tablet"
+            android:textSize="16sp" />
+
+
+        <!-- Note -->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:textSize="14sp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/addNote"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:gravity="top"
+            android:textSize="16sp"
+            android:hint="" />
+
+
+        <!-- SAVE button -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="SAVE"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="#3DB4A0"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="40dp" />
+
+    </LinearLayout>
+
+</ScrollView>
