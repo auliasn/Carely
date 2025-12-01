@@ -5,11 +5,12 @@ import java.util.Date
 import java.util.Locale
 
 data class Obat (
+    val id : Int,
     val name : String,
     val dose : String,
     val time : String = getCurrentTime(),
     val note : String? = "-",
-    val status : statusObat
+    val status : statusObat = statusObat.BELUM_DIMINUM
 )
 
 enum class statusObat {
