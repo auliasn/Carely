@@ -27,12 +27,12 @@ class HomeFragment : Fragment() {
 
         // === DATA OBAT (ini dulu hilang, jadi aku tambahkan) ===
         val listObat = listOf(
-            Obat(1,"Vitamin C", "1 Tablet", "07.00", "-", statusObat.SUDAH_DIMINUM),
-            Obat(2,"Omeprazole", "1 Kapsul", "06.30", "Sebelum Makan", statusObat.BELUM_DIMINUM),
-            Obat(3,"Simvastatin", "1 Tablet", "21.00", "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat(4,"Kalsium D3", "1 Tablet", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat(5,"Amoxilin", "1 Tablet", "20.30", "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat(6,"Ibuprofen", "1 Tablet", "07.00", "Setelah Makan", statusObat.BELUM_DIMINUM)
+            Obat(1,"Vitamin C", "1 Tablet", 7, 0, "-", statusObat.SUDAH_DIMINUM),
+            Obat(2,"Omeprazole", "1 Kapsul", 6, 30, "Sebelum Makan", statusObat.BELUM_DIMINUM),
+            Obat(3,"Simvastatin", "1 Tablet", 21, 0, "Setelah Makan", statusObat.BELUM_DIMINUM),
+            Obat(4,"Kalsium D3", "1 Tablet", 20, 30, "Setelah Makan", statusObat.BELUM_DIMINUM),
+            Obat(5,"Amoxilin", "1 Tablet", 20, 30, "Setelah Makan", statusObat.BELUM_DIMINUM),
+            Obat(6,"Ibuprofen", "1 Tablet", 7, 0, "Setelah Makan", statusObat.BELUM_DIMINUM)
         )
 
         val recyclerViewMeds = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
