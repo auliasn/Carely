@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_edit"
-        android:title="Edit"
-        android:icon="@drawable/ic_pencil"/>
+        android:id="@+id/menu_tambah"
+        android:title="Add"
+        android:icon="@drawable/btn_add"/>
 </menu>
