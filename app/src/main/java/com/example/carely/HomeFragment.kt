@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -51,6 +52,11 @@ class HomeFragment : Fragment() {
                 R.id.action_homeFragment_to_editObatFragment,
                 bundle
             )
+        }
+        val btnAdd: ImageView = view.findViewById(R.id.btnAdd)
+
+        btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
 
         recyclerViewMeds.adapter = adapter
