@@ -26,8 +26,7 @@ class HomeFragment : Fragment() {
         val textViewMessage = view.findViewById<TextView>(R.id.textViewMessage)
         textViewMessage.text = "DAILY MEDS"
 
-        // === DATA OBAT (ini dulu hilang, jadi aku tambahkan) ===
-        val listObat = listOf(
+        val listObat = mutableListOf(
             Obat(1,"Vitamin C", "1 Tablet", 7, 0, "-", statusObat.SUDAH_DIMINUM),
             Obat(2,"Omeprazole", "1 Kapsul", 6, 30, "Sebelum Makan", statusObat.BELUM_DIMINUM),
             Obat(3,"Simvastatin", "1 Tablet", 21, 0, "Setelah Makan", statusObat.BELUM_DIMINUM),
@@ -39,12 +38,11 @@ class HomeFragment : Fragment() {
         val recyclerViewMeds = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
         recyclerViewMeds.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        // === ADAPTER DENGAN KLIK ITEM (untuk ke halaman edit) ===
         val adapter = ObatAdapter(listObat) { obat ->
             val bundle = Bundle().apply {
                 putString("name", obat.name)
                 putString("dose", obat.dose)
-                putString("time", obat.time)
+                putString("time", "${obat.hour}:${obat.minute}")
                 putString("note", obat.note)
             }
 
@@ -53,12 +51,43 @@ class HomeFragment : Fragment() {
                 bundle
             )
         }
-        val btnAdd: ImageView = view.findViewById(R.id.btnAdd)
+        recyclerViewMeds.adapter = adapter
 
+        val btnAdd: ImageView = view.findViewById(R.id.btnAdd)
         btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
 
-        recyclerViewMeds.adapter = adapter
+        parentFragmentManager.setFragmentResultListener("editObatResult", viewLifecycleOwner) { _, bundle ->
+            val action = bundle.getString("action")
+            if (action == "update") {
+                val nama = bundle.getString("nama")
+                val dosis = bundle.getString("dosis")
+                val waktu = bundle.getString("waktu")
+                val catatan = bundle.getString("catatan")
+
+                val index = listObat.indexOfFirst { it.name == nama }
+                if (index != -1) {
+                    val splitTime= waktu?.split(":")
+                    listObat[index] = listObat[index].copy(
+                        name = nama ?: listObat[index].name,
+                        dose = dosis ?: listObat[index].dose,
+                        hour = splitTime?.getOrNull(0)?.toIntOrNull() ?: listObat[index].hour,
+                        minute = splitTime?.getOrNull(1)?.toIntOrNull() ?: listObat[index].minute,
+                        note = catatan ?: listObat[index].note
+                    )
+                    adapter.notifyItemChanged(index)
+                }
+            }
+
+            if (action == "delete") {
+                val nama = bundle.getString("nama")
+                val index = listObat.indexOfFirst { it.name == nama }
+                if (index != -1) {
+                    listObat.removeAt(index)
+                    adapter.notifyItemRemoved(index)
+                }
+            }
+        }
     }
 }
