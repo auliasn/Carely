@@ -40,10 +40,10 @@ class HomeFragment : Fragment() {
 
         val adapter = ObatAdapter(listObat) { obat ->
             val bundle = Bundle().apply {
-                putString("name", obat.name)
-                putString("dose", obat.dose)
-                putString("time", "${obat.hour}:${obat.minute}")
-                putString("note", obat.note)
+                putString("nama", obat.name)
+                putString("dosis", obat.dose)
+                putString("waktu", "${obat.hour}:${obat.minute}")
+                putString("catatan", obat.note)
             }
 
             findNavController().navigate(
