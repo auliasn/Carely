@@ -68,7 +68,6 @@
             android:layout_height="48dp"
             android:background="@drawable/edittext_bg"
             android:padding="12dp"
-            android:hint="Vitamin C"
             android:textSize="16sp" />
 
 
@@ -94,8 +93,7 @@
                 android:gravity="center"
                 android:background="@drawable/edittext_bg"
                 android:padding="8dp"
-                android:inputType="number"
-                android:hint="07" />
+                android:inputType="number"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,8 +109,7 @@
                 android:gravity="center"
                 android:background="@drawable/edittext_bg"
                 android:padding="8dp"
-                android:inputType="number"
-                android:hint="00" />
+                android:inputType="number"/>
 
         </LinearLayout>
 
@@ -132,7 +129,6 @@
             android:layout_height="48dp"
             android:background="@drawable/edittext_bg"
             android:padding="12dp"
-            android:hint="1 Tablet"
             android:textSize="16sp" />
 
 
