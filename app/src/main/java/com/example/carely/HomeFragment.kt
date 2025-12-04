@@ -53,6 +53,32 @@ class HomeFragment : Fragment() {
         }
         recyclerViewMeds.adapter = adapter
 
+        parentFragmentManager.setFragmentResultListener(
+            "addObatResult",
+            viewLifecycleOwner
+        ) { _, bundle ->
+
+            val nama = bundle.getString("nama")
+            val dosis = bundle.getString("dosis")
+            val hour = bundle.getInt("hour")
+            val minute = bundle.getInt("minute")
+            val catatan = bundle.getString("catatan")
+
+            val newObat = Obat(
+                id = listObat.size + 1,
+                name = nama ?: "-",
+                dose = dosis ?: "-",
+                hour = hour,
+                minute = minute,
+                note = catatan ?: "-",
+                status = statusObat.BELUM_DIMINUM
+            )
+
+            listObat.add(newObat)
+            adapter.notifyItemInserted(listObat.size - 1)
+        }
+
+
         val btnAdd: ImageView = view.findViewById(R.id.btnAdd)
         btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addFragment)
