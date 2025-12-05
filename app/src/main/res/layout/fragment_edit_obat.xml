@@ -84,7 +84,10 @@
                 android:gravity="center"
                 android:background="@drawable/edittext_bg"
                 android:padding="8dp"
-                android:inputType="number" />
+                android:inputType="none"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="HH"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,7 +103,10 @@
                 android:gravity="center"
                 android:background="@drawable/edittext_bg"
                 android:padding="8dp"
-                android:inputType="number" />
+                android:inputType="none"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="MM"/>
 
         </LinearLayout>
 

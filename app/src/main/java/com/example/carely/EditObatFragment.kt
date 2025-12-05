@@ -1,5 +1,6 @@
 package com.example.carely
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -58,6 +59,29 @@ class EditObatFragment : Fragment() {
         editDose.setText(dose)
         editNote.setText(note)
 
+        editHour.isFocusable = false
+        editHour.isClickable = true
+        editMinute.isFocusable = false
+        editMinute.isClickable = true
+
+        val showTimePicker = {
+            val currentHour = editHour.text.toString().toIntOrNull() ?: 0
+            val currentMinute = editMinute.text.toString().toIntOrNull() ?: 0
+
+            TimePickerDialog(
+                requireContext(),
+                { _, hourOfDay, minute ->
+                    editHour.setText(hourOfDay.toString().padStart(2, '0'))
+                    editMinute.setText(minute.toString().padStart(2, '0'))
+                },
+                currentHour,
+                currentMinute,
+                true
+            ).show()
+        }
+        editHour.setOnClickListener { showTimePicker() }
+        editMinute.setOnClickListener { showTimePicker() }
+
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
@@ -75,7 +99,7 @@ class EditObatFragment : Fragment() {
 
             val result = Bundle().apply {
                 putString("action", "update")
-                putInt("id", idObat)   // ⬅ kirim id kembali
+                putInt("id", idObat)
                 putString("nama", newName)
                 putString("dosis", newDose)
                 putString("waktu", newTime)
@@ -89,7 +113,7 @@ class EditObatFragment : Fragment() {
         btnDelete.setOnClickListener {
             val result = Bundle().apply {
                 putString("action", "delete")
-                putInt("id", idObat)   // ⬅ kirim id juga saat delete
+                putInt("id", idObat)
             }
 
             parentFragmentManager.setFragmentResult("editObatResult", result)
