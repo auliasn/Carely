@@ -52,15 +52,28 @@ class AddFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            // Validasi angka
+            val hourInt = hour.toIntOrNull()
+            val minuteInt = minute.toIntOrNull()
+
+            if (hourInt == null || minuteInt == null || hourInt !in 0..23 || minuteInt !in 0..59) {
+                Toast.makeText(requireContext(), "Waktu tidak valid", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Format dua digit
+            val hourFormatted = String.format("%02d", hourInt)
+            val minuteFormatted = String.format("%02d", minuteInt)
+
             val bundle = Bundle().apply {
                 putString("nama", name)
                 putString("dosis", dose)
                 putInt("hour", hour.toInt())
                 putInt("minute", minute.toInt())
                 putString("catatan", if (note.isEmpty()) "-" else note)
+                putString("waktuFormat", "$hourFormatted:$minuteFormatted")
             }
 
-            // ⬅️ Tambahan BARU yang penting
             parentFragmentManager.setFragmentResult("addObatResult", bundle)
 
             requireActivity().onBackPressedDispatcher.onBackPressed()

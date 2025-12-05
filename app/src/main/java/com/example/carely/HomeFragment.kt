@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class HomeFragment : Fragment() {
 
+    private lateinit var listObat: MutableList<Obat>
+    private lateinit var adapter: ObatAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,94 +29,96 @@ class HomeFragment : Fragment() {
         val textViewMessage = view.findViewById<TextView>(R.id.textViewMessage)
         textViewMessage.text = "DAILY MEDS"
 
-        val listObat = mutableListOf(
-            Obat(1,"Vitamin C", "1 Tablet", 7, 0, "-", statusObat.SUDAH_DIMINUM),
-            Obat(2,"Omeprazole", "1 Kapsul", 6, 30, "Sebelum Makan", statusObat.BELUM_DIMINUM),
-            Obat(3,"Simvastatin", "1 Tablet", 21, 0, "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat(4,"Kalsium D3", "1 Tablet", 20, 30, "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat(5,"Amoxilin", "1 Tablet", 20, 30, "Setelah Makan", statusObat.BELUM_DIMINUM),
-            Obat(6,"Ibuprofen", "1 Tablet", 7, 0, "Setelah Makan", statusObat.BELUM_DIMINUM)
-        )
+        // 1️⃣ LOAD DATA DARI MEMORY
+        listObat = ObatStorage.load(requireContext())
 
-        val recyclerViewMeds = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
-        recyclerViewMeds.layoutManager = GridLayoutManager(requireContext(), 2)
+        // Jika pertama kali app, isi default
+        if (listObat.isEmpty()) {
+            listObat = mutableListOf(
+                Obat(1,"Vitamin C", "1 Tablet", 7, 0, "-", statusObat.SUDAH_DIMINUM),
+                Obat(2,"Omeprazole", "1 Kapsul", 6, 30, "Sebelum Makan", statusObat.BELUM_DIMINUM),
+                Obat(3,"Simvastatin", "1 Tablet", 21, 0, "Setelah Makan", statusObat.BELUM_DIMINUM),
+                Obat(4,"Kalsium D3", "1 Tablet", 20, 30, "Setelah Makan", statusObat.BELUM_DIMINUM),
+                Obat(5,"Amoxilin", "1 Tablet", 20, 30, "Setelah Makan", statusObat.BELUM_DIMINUM),
+                Obat(6,"Ibuprofen", "1 Tablet", 7, 0, "Setelah Makan", statusObat.BELUM_DIMINUM)
+            )
+            ObatStorage.save(requireContext(), listObat)
+        }
 
-        val adapter = ObatAdapter(listObat) { obat ->
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewMeds)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+
+        adapter = ObatAdapter(listObat) { obat ->
             val bundle = Bundle().apply {
+                putInt("id", obat.id)
                 putString("nama", obat.name)
                 putString("dosis", obat.dose)
                 putString("waktu", "${obat.hour}:${obat.minute}")
                 putString("catatan", obat.note)
             }
-
             findNavController().navigate(
                 R.id.action_homeFragment_to_editObatFragment,
                 bundle
             )
         }
-        recyclerViewMeds.adapter = adapter
 
-        parentFragmentManager.setFragmentResultListener(
-            "addObatResult",
-            viewLifecycleOwner
-        ) { _, bundle ->
+        recyclerView.adapter = adapter
 
-            val nama = bundle.getString("nama")
-            val dosis = bundle.getString("dosis")
-            val hour = bundle.getInt("hour")
-            val minute = bundle.getInt("minute")
-            val catatan = bundle.getString("catatan")
+        // 2️⃣ TERIMA DATA TAMBAH OBAT
+        parentFragmentManager.setFragmentResultListener("addObatResult", viewLifecycleOwner) { _, bundle ->
 
             val newObat = Obat(
-                id = listObat.size + 1,
-                name = nama ?: "-",
-                dose = dosis ?: "-",
-                hour = hour,
-                minute = minute,
-                note = catatan ?: "-",
+                id = (listObat.maxOfOrNull { it.id } ?: 0) + 1,
+                name = bundle.getString("nama", "-"),
+                dose = bundle.getString("dosis", "-"),
+                hour = bundle.getInt("hour"),
+                minute = bundle.getInt("minute"),
+                note = bundle.getString("catatan", "-"),
                 status = statusObat.BELUM_DIMINUM
             )
 
             listObat.add(newObat)
             adapter.notifyItemInserted(listObat.size - 1)
+
+            // SAVE
+            ObatStorage.save(requireContext(), listObat)
         }
 
-
-        val btnAdd: ImageView = view.findViewById(R.id.btnAdd)
-        btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
-        }
-
+        // 3️⃣ TERIMA DATA EDIT / DELETE
         parentFragmentManager.setFragmentResultListener("editObatResult", viewLifecycleOwner) { _, bundle ->
-            val action = bundle.getString("action")
-            if (action == "update") {
-                val nama = bundle.getString("nama")
-                val dosis = bundle.getString("dosis")
-                val waktu = bundle.getString("waktu")
-                val catatan = bundle.getString("catatan")
 
-                val index = listObat.indexOfFirst { it.name == nama }
-                if (index != -1) {
-                    val splitTime= waktu?.split(":")
-                    listObat[index] = listObat[index].copy(
-                        name = nama ?: listObat[index].name,
-                        dose = dosis ?: listObat[index].dose,
-                        hour = splitTime?.getOrNull(0)?.toIntOrNull() ?: listObat[index].hour,
-                        minute = splitTime?.getOrNull(1)?.toIntOrNull() ?: listObat[index].minute,
-                        note = catatan ?: listObat[index].note
-                    )
-                    adapter.notifyItemChanged(index)
-                }
+            val action = bundle.getString("action") ?: return@setFragmentResultListener
+            val id = bundle.getInt("id")
+
+            val index = listObat.indexOfFirst { it.id == id }
+            if (index == -1) return@setFragmentResultListener
+
+            if (action == "update") {
+                val waktu = bundle.getString("waktu")?.split(":")
+
+                listObat[index] = listObat[index].copy(
+                    name = bundle.getString("nama", listObat[index].name),
+                    dose = bundle.getString("dosis", listObat[index].dose),
+                    hour = waktu?.getOrNull(0)?.toIntOrNull() ?: listObat[index].hour,
+                    minute = waktu?.getOrNull(1)?.toIntOrNull() ?: listObat[index].minute,
+                    note = bundle.getString("catatan", listObat[index].note)
+                )
+
+                adapter.notifyItemChanged(index)
             }
 
             if (action == "delete") {
-                val nama = bundle.getString("nama")
-                val index = listObat.indexOfFirst { it.name == nama }
-                if (index != -1) {
-                    listObat.removeAt(index)
-                    adapter.notifyItemRemoved(index)
-                }
+                listObat.removeAt(index)
+                adapter.notifyItemRemoved(index)
             }
+
+            // SAVE
+            ObatStorage.save(requireContext(), listObat)
+        }
+
+        // 4️⃣ TOMBOL ADD
+        view.findViewById<ImageView>(R.id.btnAdd).setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
     }
 }

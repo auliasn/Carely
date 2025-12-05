@@ -35,9 +35,13 @@ class EditObatFragment : Fragment() {
         editHour = view.findViewById(R.id.editHour)
         editMinute = view.findViewById(R.id.editMinute)
         editNote = view.findViewById(R.id.editNote)
-        btnSave = view.findViewById<Button>(R.id.btnSave)
-        btnDelete = view.findViewById<Button>(R.id.btnDelete)
-        btnBack = view.findViewById<ImageView>(R.id.btnBack)
+        btnSave = view.findViewById(R.id.btnSave)
+        btnDelete = view.findViewById(R.id.btnDelete)
+        btnBack = view.findViewById(R.id.btnBack)
+
+        // ⬅ Ambil ID obat dari arguments
+        val idObat = arguments?.getInt("id") ?: -1
+        if (idObat == -1) return
 
         val name = arguments?.getString("nama") ?: ""
         val dose = arguments?.getString("dosis") ?: ""
@@ -65,14 +69,19 @@ class EditObatFragment : Fragment() {
             val newMinute = editMinute.text.toString().trim()
             val newNote = editNote.text.toString().trim()
 
-            val newTime = "$newHour:$newMinute"
+            val newTime =
+                if (newHour.isNotEmpty() && newMinute.isNotEmpty()) "$newHour:$newMinute"
+                else time
+
             val result = Bundle().apply {
+                putString("action", "update")
+                putInt("id", idObat)   // ⬅ kirim id kembali
                 putString("nama", newName)
                 putString("dosis", newDose)
                 putString("waktu", newTime)
                 putString("catatan", newNote)
-                putString("action", "update")
             }
+
             parentFragmentManager.setFragmentResult("editObatResult", result)
             parentFragmentManager.popBackStack()
         }
@@ -80,8 +89,9 @@ class EditObatFragment : Fragment() {
         btnDelete.setOnClickListener {
             val result = Bundle().apply {
                 putString("action", "delete")
-                putString("nama", name)
+                putInt("id", idObat)   // ⬅ kirim id juga saat delete
             }
+
             parentFragmentManager.setFragmentResult("editObatResult", result)
             parentFragmentManager.popBackStack()
         }
