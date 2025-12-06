@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.sql.Time
 
 class AddFragment : Fragment() {
@@ -28,6 +29,7 @@ class AddFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationMenu)?.visibility = View.GONE
 
         // Ambil view dari layout
         val btnBack: ImageView = view.findViewById(R.id.btnBack)
@@ -104,5 +106,10 @@ class AddFragment : Fragment() {
             parentFragmentManager.setFragmentResult("addObatResult", bundle)
             findNavController().navigateUp()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationMenu)?.visibility = View.VISIBLE
     }
 }

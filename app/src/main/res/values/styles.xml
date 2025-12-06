@@ -10,4 +10,10 @@
         <item name="android:width">0dp</item>
         <item name="android:height">0dp</item>
     </style>
+
+    <style name="Theme.Carely.Popup" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

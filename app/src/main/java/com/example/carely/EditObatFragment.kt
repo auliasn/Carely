@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.min
 
 class EditObatFragment : Fragment() {
@@ -33,6 +34,7 @@ class EditObatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationMenu)?.visibility = View.GONE
 
         editName = view.findViewById(R.id.editName)
         editDose = view.findViewById(R.id.editDose)
@@ -136,5 +138,10 @@ class EditObatFragment : Fragment() {
             parentFragmentManager.setFragmentResult("editObatResult", result)
             parentFragmentManager.popBackStack()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationMenu)?.visibility = View.VISIBLE
     }
 }
