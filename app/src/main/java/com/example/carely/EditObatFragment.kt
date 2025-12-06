@@ -9,8 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import kotlin.math.min
 
 class EditObatFragment : Fragment() {
+
+    private var selectedHour = -1
+    private var selectedMinute = -1
 
     private lateinit var editName: EditText
     private lateinit var editDose: EditText
@@ -54,7 +58,7 @@ class EditObatFragment : Fragment() {
         if (time.contains(":")) {
             val parts = time.split(":")
             val h = parts.getOrNull(0)?.toIntOrNull() ?: 0
-            val m = parts.getOrNull(1)?.toIntOrNull() ?: 0
+            val m = parts.getOrNull(0)?.toIntOrNull() ?: 0
             editTime.setText("%02d:%02d".format(h, m))
         } else {
             editTime.setText(time)
@@ -65,14 +69,15 @@ class EditObatFragment : Fragment() {
 
         val showTimePicker = {
             val currentParts = editTime.text.toString().split(":")
-            val currentHour = time.substringBefore(":").toIntOrNull() ?: 0
-            val currentMinute = time.substringBefore(":").toIntOrNull() ?: 0
+            val currentHour = currentParts.getOrNull(0)?.toIntOrNull() ?: 0
+            val currentMinute = currentParts.getOrNull(0)?.toIntOrNull() ?: 0
 
             TimePickerDialog(
                 requireContext(),
                 { _, hourOfDay, minute ->
-                    val formatted = "%02d:%02d".format(hourOfDay, minute)
-                    editTime.setText(formatted)
+                    selectedHour = hourOfDay
+                    selectedMinute = minute
+                    editTime.setText("%02d:%02d".format(hourOfDay, minute))
                 },
                 currentHour,
                 currentMinute,
@@ -100,11 +105,22 @@ class EditObatFragment : Fragment() {
                 putString("catatan", newNote)
             }
 
+            AlarmHelper.setAlarm(
+                requireContext(),
+                id = idObat,          // id tetap sama supaya alarm tidak numpuk
+                hour = selectedHour,
+                minute = selectedMinute,
+                nama = newName
+            )
+
             parentFragmentManager.setFragmentResult("editObatResult", result)
             parentFragmentManager.popBackStack()
         }
 
+
         btnDelete.setOnClickListener {
+            AlarmHelper.cancelAlarm(requireContext(), idObat)
+
             val result = Bundle().apply {
                 putString("action", "delete")
                 putInt("id", idObat)

@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
                 intent.putExtra(KEY_USERNAME, username)
                 intent.putExtra(KEY_PASSWORD, password)
                 startActivity(intent)
+                finish()
                 Toast.makeText(
                     this,
                     "Login Berhasil",

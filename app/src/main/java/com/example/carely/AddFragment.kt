@@ -10,10 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import java.sql.Time
 
 class AddFragment : Fragment() {
 
+    private var selectedHour = -1
+    private var selectedMinute = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,17 +40,17 @@ class AddFragment : Fragment() {
         etTime.isFocusable = false
         etTime.isClickable = true
 
-        etTime.setOnClickListener {
-            val timeValue = etTime.text.toString()
-            val parts = timeValue.split(":")
-            val currentHour = parts.toString().substringBefore(":").toIntOrNull() ?: 0
-            val currentMinute = parts.toString().substringBefore(":").toIntOrNull() ?: 0
+        val now = java.util.Calendar.getInstance()
+        val currentHour = now.get(java.util.Calendar.HOUR_OF_DAY)
+        val currentMinute = now.get(java.util.Calendar.MINUTE)
 
+        etTime.setOnClickListener {
             TimePickerDialog(
                 requireContext(),
                 { _, hourOfDay, minute ->
-                    val formatted = "%02d:%02d".format(hourOfDay, minute)
-                    etTime.setText(formatted)
+                    selectedHour = hourOfDay
+                    selectedMinute = minute
+                    etTime.setText("%02d:%02d".format(hourOfDay, minute))
                 },
                 currentHour,
                 currentMinute,
@@ -57,7 +60,7 @@ class AddFragment : Fragment() {
 
         // Tombol back
         btnBack.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            findNavController().navigateUp()
         }
 
         // Tombol save
@@ -72,15 +75,34 @@ class AddFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            if (selectedHour == -1 || selectedMinute == -1) {
+                Toast.makeText(requireContext(), "Silakan pilih waktu terlebih dahulu", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val bundle = Bundle().apply {
                 putString("nama", name)
                 putString("dosis", dose)
                 putString("catatan", if (note.isEmpty()) "-" else note)
                 putString("waktuFormat", time)
+
+                // Tambahan penting
+                putInt("hour", selectedHour)
+                putInt("minute", selectedMinute)
             }
 
+            val newId = (System.currentTimeMillis() % Int.MAX_VALUE).toInt()
+
+            AlarmHelper.setAlarm(
+                requireContext(),
+                id = newId,
+                hour = selectedHour,
+                minute = selectedMinute,
+                nama = name
+            )
+
             parentFragmentManager.setFragmentResult("addObatResult", bundle)
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            findNavController().navigateUp()
         }
     }
 }
