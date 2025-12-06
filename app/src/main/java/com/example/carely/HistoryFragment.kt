@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class HistoryFragment : Fragment() {
 
@@ -18,6 +20,10 @@ class HistoryFragment : Fragment() {
         // DI SINI KITA NAMPILIN XML-nya
         // fragment_history = nama file layout XML kamu
         val view = inflater.inflate(R.layout.fragment_history, container, false)
+
+        val recycler = view.findViewById<RecyclerView>(R.id.recyclerHistory)
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+        recycler.adapter = HistoryAdapter(HistoryManager.getAllHistory())
 
         // mengembalikan tampilan tadi supaya ditampilkan di layar
         return view
