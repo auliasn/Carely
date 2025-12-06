@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
 
             val channel = NotificationChannel(
-                "obat_channel_new_2",   // GANTI ID BARU LAGI
+                "obat_channel_new_2",
                 "Pengingat Obat",
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
