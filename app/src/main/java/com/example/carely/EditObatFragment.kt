@@ -14,8 +14,7 @@ class EditObatFragment : Fragment() {
 
     private lateinit var editName: EditText
     private lateinit var editDose: EditText
-    private lateinit var editHour: EditText
-    private lateinit var editMinute: EditText
+    private lateinit var editTime: EditText
     private lateinit var editNote: EditText
     private lateinit var btnSave: Button
     private lateinit var btnDelete: Button
@@ -33,8 +32,7 @@ class EditObatFragment : Fragment() {
 
         editName = view.findViewById(R.id.editName)
         editDose = view.findViewById(R.id.editDose)
-        editHour = view.findViewById(R.id.editHour)
-        editMinute = view.findViewById(R.id.editMinute)
+        editTime = view.findViewById(R.id.editTime)
         editNote = view.findViewById(R.id.editNote)
         btnSave = view.findViewById(R.id.btnSave)
         btnDelete = view.findViewById(R.id.btnDelete)
@@ -49,38 +47,39 @@ class EditObatFragment : Fragment() {
         val time = arguments?.getString("waktu") ?: ""
         val note = arguments?.getString("catatan") ?: ""
 
-        if (time.contains(":")) {
-            val split = time.split(":")
-            editHour.setText(split.getOrNull(0) ?: "")
-            editMinute.setText(split.getOrNull(1) ?: "")
-        }
-
         editName.setText(name)
         editDose.setText(dose)
         editNote.setText(note)
 
-        editHour.isFocusable = false
-        editHour.isClickable = true
-        editMinute.isFocusable = false
-        editMinute.isClickable = true
+        if (time.contains(":")) {
+            val parts = time.split(":")
+            val h = parts.getOrNull(0)?.toIntOrNull() ?: 0
+            val m = parts.getOrNull(1)?.toIntOrNull() ?: 0
+            editTime.setText("%02d:%02d".format(h, m))
+        } else {
+            editTime.setText(time)
+        }
+
+        editTime.isFocusable = false
+        editTime.isClickable = true
 
         val showTimePicker = {
-            val currentHour = editHour.text.toString().toIntOrNull() ?: 0
-            val currentMinute = editMinute.text.toString().toIntOrNull() ?: 0
+            val currentParts = editTime.text.toString().split(":")
+            val currentHour = time.substringBefore(":").toIntOrNull() ?: 0
+            val currentMinute = time.substringBefore(":").toIntOrNull() ?: 0
 
             TimePickerDialog(
                 requireContext(),
                 { _, hourOfDay, minute ->
-                    editHour.setText(hourOfDay.toString().padStart(2, '0'))
-                    editMinute.setText(minute.toString().padStart(2, '0'))
+                    val formatted = "%02d:%02d".format(hourOfDay, minute)
+                    editTime.setText(formatted)
                 },
                 currentHour,
                 currentMinute,
                 true
             ).show()
         }
-        editHour.setOnClickListener { showTimePicker() }
-        editMinute.setOnClickListener { showTimePicker() }
+        editTime.setOnClickListener { showTimePicker() }
 
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -89,13 +88,8 @@ class EditObatFragment : Fragment() {
         btnSave.setOnClickListener {
             val newName = editName.text.toString().trim()
             val newDose = editDose.text.toString().trim()
-            val newHour = editHour.text.toString().trim()
-            val newMinute = editMinute.text.toString().trim()
+            val newTime = editTime.text.toString().trim()
             val newNote = editNote.text.toString().trim()
-
-            val newTime =
-                if (newHour.isNotEmpty() && newMinute.isNotEmpty()) "$newHour:$newMinute"
-                else time
 
             val result = Bundle().apply {
                 putString("action", "update")

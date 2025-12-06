@@ -16,10 +16,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingStart="16dp"
+            android:paddingStart="50dp"
             android:text="USER PROFILE"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:gravity="center"
             android:textColor="#000" />
 
         <ImageView
