@@ -28,7 +28,12 @@ class PopupActivity : AppCompatActivity() {
 
     private fun onYesClicked() {
         // 1. Update status obat
-        ObatManager.setSudahDiminum(obatId)
+        val list = ObatStorage.load(this)
+        val index = list.indexOfFirst { it.id == obatId }
+        if (index != -1) {
+            list[index] = list[index].copy(status = statusObat.SUDAH_DIMINUM)
+            ObatStorage.save(this, list)
+        }
 
         // 2. Simpan ke history
         val now = java.util.Calendar.getInstance()

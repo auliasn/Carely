@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textViewMessage = view.findViewById<TextView>(R.id.textViewMessage)
+        val textViewMessage = view.findViewById<TextView>(R.id.tvHistory)
         textViewMessage.text = "DAILY MEDS"
 
         // 1️⃣ LOAD DATA DARI MEMORY
@@ -120,5 +120,14 @@ class HomeFragment : Fragment() {
         view.findViewById<ImageView>(R.id.btnAdd).setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
+    }
+    override fun onResume() {
+        super.onResume()
+
+        // reload data terbaru dari file (ObatStorage)
+        listObat = ObatStorage.load(requireContext())
+
+        // refresh adapter supaya border berubah
+        adapter.notifyDataSetChanged()
     }
 }

@@ -45,8 +45,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.herbal_capsule)
-            .setContentTitle("Pengingat Obat")
-            .setContentText("Sudah waktunya minum obat!")
+            .setContentTitle("Meds Reminder")
+            .setContentText("It's Pil Time!")
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSound(soundUri)   // Tambahan untuk Android 12 ke bawah
@@ -54,13 +54,11 @@ class AlarmReceiver : BroadcastReceiver() {
         notificationManager.notify(System.currentTimeMillis().toInt(), builder.build())
 
         val popupIntent = Intent(context, PopupActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
-            // Jika kamu ingin membawa data obat ke popup:
             putExtra("ID_OBAT", intent?.getIntExtra("ID_OBAT", -1))
             putExtra("NAMA_OBAT", intent?.getStringExtra("NAMA_OBAT"))
         }
-
         context.startActivity(popupIntent)
 
     }

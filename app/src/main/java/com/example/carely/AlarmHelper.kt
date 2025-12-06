@@ -11,7 +11,8 @@ object AlarmHelper {
     fun setAlarm(context: Context, id: Int, hour: Int, minute: Int, nama: String) {
 
         val intent = Intent(context, AlarmReceiver::class.java).apply {
-            putExtra("nama", nama)
+            putExtra("NAMA_OBAT", nama)
+            putExtra("ID_OBAT", id)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
