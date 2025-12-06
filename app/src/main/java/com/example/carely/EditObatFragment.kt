@@ -58,7 +58,7 @@ class EditObatFragment : Fragment() {
         if (time.contains(":")) {
             val parts = time.split(":")
             val h = parts.getOrNull(0)?.toIntOrNull() ?: 0
-            val m = parts.getOrNull(0)?.toIntOrNull() ?: 0
+            val m = parts.getOrNull(1)?.toIntOrNull() ?: 0
             editTime.setText("%02d:%02d".format(h, m))
         } else {
             editTime.setText(time)
@@ -70,7 +70,7 @@ class EditObatFragment : Fragment() {
         val showTimePicker = {
             val currentParts = editTime.text.toString().split(":")
             val currentHour = currentParts.getOrNull(0)?.toIntOrNull() ?: 0
-            val currentMinute = currentParts.getOrNull(0)?.toIntOrNull() ?: 0
+            val currentMinute = currentParts.getOrNull(1)?.toIntOrNull() ?: 0
 
             TimePickerDialog(
                 requireContext(),
@@ -84,6 +84,7 @@ class EditObatFragment : Fragment() {
                 true
             ).show()
         }
+
         editTime.setOnClickListener { showTimePicker() }
 
         btnBack.setOnClickListener {
@@ -91,6 +92,12 @@ class EditObatFragment : Fragment() {
         }
 
         btnSave.setOnClickListener {
+            if (selectedHour == -1 || selectedMinute == -1) {
+                val oldParts = editTime.text.toString().split(":")
+                selectedHour = oldParts[0].toInt()
+                selectedMinute = oldParts[1].toInt()
+            }
+
             val newName = editName.text.toString().trim()
             val newDose = editDose.text.toString().trim()
             val newTime = editTime.text.toString().trim()
