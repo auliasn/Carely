@@ -6,7 +6,7 @@ data class Obat(
     val dose: String,
     val hour: Int,
     val minute: Int,
-    val note: String? = "-",
+    val note: String = "-",
     val status: statusObat = statusObat.BELUM_DIMINUM
 ) {
     val time: String
