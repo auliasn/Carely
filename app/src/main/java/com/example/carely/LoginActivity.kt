@@ -35,13 +35,13 @@ class LoginActivity : AppCompatActivity() {
                 finish()
                 Toast.makeText(
                     this,
-                    "Login Berhasil",
+                    "Login Succesfull",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
                 Toast.makeText(
                     this,
-                    "Login Gagal",
+                    "Login Failed",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
         // Jika pertama kali app, isi default
         if (listObat.isEmpty()) {
             listObat = mutableListOf(
-                Obat(1,"Vitamin C", "1 Tablet", 7, 0, "-", statusObat.SUDAH_DIMINUM),
+                Obat(1,"Vitamin C", "1 Tablet", 7, 0, "-", statusObat.BELUM_DIMINUM),
                 Obat(2,"Omeprazole", "1 Kapsul", 6, 30, "Sebelum Makan", statusObat.BELUM_DIMINUM),
                 Obat(3,"Simvastatin", "1 Tablet", 21, 0, "Setelah Makan", statusObat.BELUM_DIMINUM),
                 Obat(4,"Kalsium D3", "1 Tablet", 20, 30, "Setelah Makan", statusObat.BELUM_DIMINUM),

@@ -10,22 +10,22 @@ import androidx.recyclerview.widget.RecyclerView
 
 class HistoryFragment : Fragment() {
 
-    // Fungsi ini dipanggil waktu fragment mau dibuat
+    // Fungsi untuk memanggil fragment yg mau dibuat
     override fun onCreateView(
-        inflater: LayoutInflater,     // ini buat "ngembangin" layout (membaca XML jadi tampilan)
-        container: ViewGroup?,        // tempat fragment bakal ditaruh
-        savedInstanceState: Bundle?   // data sebelum-sebelumnya (biasanya ga dipakai)
+        inflater: LayoutInflater,     // mengembangkan layout (membaca XML jadi tampilan)
+        container: ViewGroup?,        // tempat fragment
+        savedInstanceState: Bundle?   // data sebelum-sebelumnya
     ): View? {
 
-        // DI SINI KITA NAMPILIN XML-nya
-        // fragment_history = nama file layout XML kamu
+        // tampilan XML-nya
+
         val view = inflater.inflate(R.layout.fragment_history, container, false)
 
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerHistory)
         recycler.layoutManager = LinearLayoutManager(requireContext())
         recycler.adapter = HistoryAdapter(HistoryManager.getAllHistory())
 
-        // mengembalikan tampilan tadi supaya ditampilkan di layar
+        // mengembalikan tampilan agar ditampilkan di layar
         return view
     }
 }
